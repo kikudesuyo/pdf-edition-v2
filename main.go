@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
@@ -10,8 +9,20 @@ import (
 func main() {
 	inFile := "hoge.pdf"
 	outDir := "fuga"
+	splitFiles(inFile, outDir)
+	pdfFiles := []string{"fuga/hoge_1.pdf", "fuga/hoge_2.pdf", "fuga/hoge_3.pdf"}
+	mergeFiles(pdfFiles)
+}
+
+func splitFiles(inFile string, outDir string) {
 	if err := api.SplitFile(inFile, outDir, 1, nil); err != nil {
 		log.Fatalf("error splitting PDF: %v", err)
 	}
-	fmt.Println("success!")
+}
+
+func mergeFiles(files []string) {
+	if err := api.MergeCreateFile(files, "hoge.pdf", false, nil); err != nil {
+		log.Fatalf("error splitting PDF: %v", err)
+	}
+
 }
