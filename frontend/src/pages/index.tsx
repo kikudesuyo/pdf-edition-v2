@@ -5,7 +5,9 @@ export default function HomeRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/home");
+    if (router.pathname === "/") {
+      router.replace("/home");
+    }
   }, [router]);
 
   return null;
