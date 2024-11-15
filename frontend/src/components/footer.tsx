@@ -3,20 +3,20 @@ import EmailIcon from "@/assets/icons/EmailIcon";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col justify-center items-center text-center sticky bottom-0 bg-slate-200 gap-4 pt-8">
+    <footer className="sticky bottom-0 flex flex-col items-center justify-center gap-4 bg-slate-200 pt-8 text-center">
       <div className="flex flex-row gap-4">
         <EmailIcon size="size-8" />
-        <p className="font-semibold text-xl">Contact:</p>
-        <a href="mailto:h.kiku1224@gmail.com" className="font-semibold text-xl">
+        <p className="text-xl font-semibold">Contact:</p>
+        <a href="mailto:h.kiku1224@gmail.com" className="text-xl font-semibold">
           h.kiku1224@gmail.com
         </a>
       </div>
       <div className="flex flex-row gap-4">
         <GitHubIcon size="size-8" />
-        <p className="font-semibold text-xl">Github:</p>
+        <p className="text-xl font-semibold">Github:</p>
         <a
           href="https://github.com/kikudesuyo"
-          className="font-semibold text-xl"
+          className="text-xl font-semibold"
         >
           https://github.com/kikudesuyo
         </a>
