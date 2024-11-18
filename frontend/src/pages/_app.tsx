@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className="flex min-h-screen flex-col">
         <Header />
-        <div className="flex-grow border-4 border-red-600">
+        <div className="flex-grow">
           <Component {...pageProps} />
         </div>
         <Footer />
