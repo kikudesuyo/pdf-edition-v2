@@ -1,7 +1,11 @@
-import Button from "@/components/common/button";
+import UploadFile from "@/components/layout/uploadFile";
 
 const SplitPdf = () => {
-  return <Button color="blue" size="medium" text="Split PDF" />;
+  return (
+    <div className="">
+      <UploadFile />
+    </div>
+  );
 };
 
 export default SplitPdf;

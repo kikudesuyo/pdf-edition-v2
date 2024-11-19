@@ -20,7 +20,9 @@ type Size = keyof typeof sizeStyle;
 
 const Button = ({ color, size, text }: ButtonProps) => {
   return (
-    <button className={`${buttonStyle[color]} ${sizeStyle[size]} `}>
+    <button
+      className={`${buttonStyle[color]} ${sizeStyle[size]} font-semibold`}
+    >
       {text}
     </button>
   );
