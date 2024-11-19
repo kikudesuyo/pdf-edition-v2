@@ -12,8 +12,18 @@ const Header = () => {
           <HomeIcon size="size-8" />
           <p className="text-2xl font-bold">Home</p>
         </Link>
-        <p className="p-2 text-xl font-semibold text-slate-600">PDF 結合</p>
-        <p className="p-2 text-xl font-semibold text-slate-600">PDF 分割</p>
+        <Link
+          href="/split-pdf"
+          className="flex flex-row items-center gap-2 text-slate-600"
+        >
+          <p className="text-2xl font-bold">Split PDF</p>
+        </Link>
+        <Link
+          href="/merge-pdf"
+          className="flex flex-row items-center gap-2 text-slate-600"
+        >
+          <p className="text-2xl font-bold">Merge PDF</p>
+        </Link>
       </div>
     </header>
   );
