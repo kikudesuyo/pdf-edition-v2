@@ -1,5 +1,5 @@
 import GitHubIcon from "@/assets/icons/gitHubIcon";
-import EmailIcon from "@/assets/icons/EmailIcon";
+import EmailIcon from "@/assets/icons/emailIcon";
 
 const Footer = () => {
   return (

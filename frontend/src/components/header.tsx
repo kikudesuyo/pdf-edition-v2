@@ -1,4 +1,4 @@
-import HomeIcon from "@/assets/icons/HomeIcon";
+import HomeIcon from "@/assets/icons/homeIcon";
 import Link from "next/link";
 
 const Header = () => {
