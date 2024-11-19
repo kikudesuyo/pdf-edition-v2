@@ -1,9 +1,9 @@
 import { IconProps, colorStyle } from "@/assets/icons/type";
 
-const UploadIcon = ({ size, color = "black" }: IconProps) => {
+const UploadIcon = ({ size, color = "black", className }: IconProps) => {
   return (
     <svg
-      className={`${size} ${colorStyle[color]} font-semibold`}
+      className={`${size} ${colorStyle[color]} ${className} font-semibold`}
       fill="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

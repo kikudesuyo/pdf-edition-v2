@@ -12,4 +12,5 @@ export const colorStyle = {
 export type IconProps = {
   size: string;
   color?: keyof typeof colorStyle;
+  className?: string;
 };
