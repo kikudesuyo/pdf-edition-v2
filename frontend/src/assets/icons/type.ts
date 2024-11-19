@@ -6,6 +6,7 @@ export const colorStyle = {
   blue: "text-blue-500",
   yellow: "text-yellow-500",
   gray: "text-gray-500",
+  ash: "text-gray-300",
 };
 
 export type IconProps = {

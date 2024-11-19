@@ -1,11 +1,7 @@
 import UploadFile from "@/components/layout/uploadFile";
 
 const SplitPdf = () => {
-  return (
-    <div className="">
-      <UploadFile />
-    </div>
-  );
+  return <UploadFile />;
 };
 
 export default SplitPdf;
