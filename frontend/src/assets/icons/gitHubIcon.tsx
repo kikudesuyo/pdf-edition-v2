@@ -1,9 +1,9 @@
-import { IconProps, colorStyle } from "@/assets/icons/type";
+import { IconProps, colorStyle, sizeStyle } from "@/assets/icons/type";
 
 const GitHubIcon = ({ size, color = "black" }: IconProps) => {
   return (
     <svg
-      className={`${size} ${colorStyle[color]} font-semibold`}
+      className={`${sizeStyle[size]} ${colorStyle[color]}font-semibold`}
       fill="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

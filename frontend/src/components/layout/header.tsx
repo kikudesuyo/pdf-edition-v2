@@ -9,7 +9,7 @@ const Header = () => {
           href="/home"
           className="flex flex-row items-center gap-2 text-slate-600"
         >
-          <HomeIcon size="size-8" />
+          <HomeIcon size="sm" color="gray" />
           <p className="text-2xl font-bold">Home</p>
         </Link>
         <Link

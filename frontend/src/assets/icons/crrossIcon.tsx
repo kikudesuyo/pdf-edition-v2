@@ -1,9 +1,9 @@
-import { IconProps, colorStyle } from "@/assets/icons/type";
+import { IconProps, colorStyle, sizeStyle } from "@/assets/icons/type";
 
 const CrossIcon = ({ size, color = "black" }: IconProps) => {
   return (
     <svg
-      className={`${size} ${colorStyle[color]} font-semibold`}
+      className={`${sizeStyle[size]} ${colorStyle[color]} font-semibold`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

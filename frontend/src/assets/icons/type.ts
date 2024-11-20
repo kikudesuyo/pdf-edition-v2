@@ -1,3 +1,12 @@
+export const sizeStyle = {
+  sm: "w-8 h-8",
+  md: "w-16 h-16",
+  lg: "w-24 h-24",
+  xl: "w-36 h-36",
+  "2xl": "w-48 h-48",
+  "3xl": "w-64 h-64",
+};
+
 export const colorStyle = {
   white: "text-white",
   black: "text-black",
@@ -10,7 +19,7 @@ export const colorStyle = {
 };
 
 export type IconProps = {
-  size: string;
+  size: keyof typeof sizeStyle;
   color?: keyof typeof colorStyle;
   className?: string;
 };

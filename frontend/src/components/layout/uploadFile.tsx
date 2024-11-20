@@ -6,7 +6,7 @@ const UploadFile = () => {
     <div className="m-8 flex flex-col items-center justify-center gap-8">
       <p className="font-sans text-5xl">File Upload</p>
       <div className="flex w-1/2 flex-col items-center gap-4 rounded-lg border-4 border-dashed border-slate-300">
-        <UploadIcon size="w-40 h-40" color="ash" className="animate-pulse" />
+        <UploadIcon size="xl" color="ash" className="animate-pulse" />
         <p className="font-sans text-2xl text-slate-500">
           Drag and drop your file here
         </p>
