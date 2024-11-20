@@ -1,5 +1,7 @@
+import UploadFile from "@/components/layout/uploadFile";
+
 const SampleComponent = () => {
-  return <p>sample</p>;
+  return <UploadFile />;
 };
 
 export default SampleComponent;
