@@ -1,7 +1,7 @@
 import UploadFile from "@/components/layout/uploadFile";
 
-const SampleComponent = () => {
+const MergePdf = () => {
   return <UploadFile />;
 };
 
-export default SampleComponent;
+export default MergePdf;
