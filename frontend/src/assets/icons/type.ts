@@ -14,7 +14,7 @@ export const colorStyle = {
   green: "text-green-500",
   blue: "text-blue-500",
   yellow: "text-yellow-500",
-  gray: "text-gray-500",
+  gray: "text-gray-400",
   ash: "text-gray-300",
 };
 
