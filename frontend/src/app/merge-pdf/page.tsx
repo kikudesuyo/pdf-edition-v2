@@ -1,7 +1,7 @@
 import UploadFile from "@/components/layout/uploadFile";
 
-const SplitPdf = () => {
+const MergePdf = () => {
   return <UploadFile />;
 };
 
-export default SplitPdf;
+export default MergePdf;

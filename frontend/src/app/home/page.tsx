@@ -1,6 +1,8 @@
+import { Text } from "@yamada-ui/react";
+
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center border-4 border-blue-400 text-black">
+    <div className="mt-12 flex flex-col items-center justify-center text-black">
       <div className="max-w-3xl text-center">
         <h1 className="mb-4 text-4xl font-extrabold">
           PDFファイルの編集を簡単に
@@ -11,7 +13,7 @@ const Home = () => {
           無料で利用でき、データの保存は一切行いませんので、安心してご利用いただけます。
         </p>
         <div>
-          <p>機能一覧</p>
+          <Text>機能一覧</Text>
           <ul>
             <li>PDFファイルの結合</li>
             <li>PDFファイルの分割</li>
