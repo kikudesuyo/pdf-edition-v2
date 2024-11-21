@@ -3,6 +3,7 @@ module github.com/kikudesuyo/pdf-edition-v2
 go 1.23.2
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/pdfcpu/pdfcpu v0.9.1
 	github.com/rs/cors v1.11.1
 	github.com/unidoc/unipdf/v3 v3.63.0
