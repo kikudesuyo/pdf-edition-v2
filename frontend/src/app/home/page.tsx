@@ -1,4 +1,7 @@
+"use client";
+
 import { Text } from "@yamada-ui/react";
+import { mergePdf } from "@/service/api";
 
 const Home = () => {
   return (
@@ -20,6 +23,12 @@ const Home = () => {
             <li>Coming soon...</li>
           </ul>
         </div>
+        <button
+          className="mt-8 rounded-lg bg-blue-500 px-6 py-3 text-white shadow-lg hover:bg-blue-600"
+          onClick={mergePdf}
+        >
+          PDFファイルを結合する
+        </button>
       </div>
     </div>
   );
