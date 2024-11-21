@@ -3,6 +3,7 @@ module github.com/kikudesuyo/pdf-edition-v2
 go 1.23.2
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/pdfcpu/pdfcpu v0.9.1
 	github.com/rs/cors v1.11.1
 	github.com/unidoc/unipdf/v3 v3.63.0
@@ -13,6 +14,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/hhrutter/lzw v1.0.0 // indirect
 	github.com/hhrutter/tiff v1.0.1 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
