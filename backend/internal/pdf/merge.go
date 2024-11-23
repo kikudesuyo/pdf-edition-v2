@@ -1,20 +1,3 @@
-// package pdf
-
-// import (
-// 	"bytes"
-
-// 	"github.com/pdfcpu/pdfcpu/pkg/api"
-// )
-
-// func MergePDF(filePaths []string) ([]byte, error) {
-// 	outputBuffer := new(bytes.Buffer)
-// 	err := api.Merge("", filePaths, outputBuffer, nil, false)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return outputBuffer.Bytes(), nil
-// }
-
 package pdf
 
 import (
@@ -35,7 +18,6 @@ func MergePDF(blobs [][]byte) ([]byte, error) {
 		pdfDocs = append(pdfDocs, pdfReader)
 	}
 	pdfWriter := model.NewPdfWriter()
-
 	for _, pdfDoc := range pdfDocs {
 		numPages, err := pdfDoc.GetNumPages()
 		if err != nil {
