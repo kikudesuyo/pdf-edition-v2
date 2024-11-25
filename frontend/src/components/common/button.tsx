@@ -1,9 +1,3 @@
-type ButtonProps = {
-  color: Color;
-  size: Size;
-  text: string;
-};
-
 const buttonStyle = {
   red: "bg-red-500 text-white",
   blue: "bg-blue-500 text-white",
@@ -18,10 +12,18 @@ const sizeStyle = {
 type Color = keyof typeof buttonStyle;
 type Size = keyof typeof sizeStyle;
 
-const Button = ({ color, size, text }: ButtonProps) => {
+type ButtonProps = {
+  color: Color;
+  size: Size;
+  text: string;
+  onClick?: () => void;
+};
+
+const Button = ({ color, size, text, onClick }: ButtonProps) => {
   return (
     <button
       className={`${buttonStyle[color]} ${sizeStyle[size]} font-semibold`}
+      onClick={onClick}
     >
       {text}
     </button>
