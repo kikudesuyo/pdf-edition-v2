@@ -3,14 +3,24 @@
 import React, { useState } from "react";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import Button from "@/components/common/button";
-import { Text } from "@yamada-ui/react";
-import { Dropzone } from "@yamada-ui/dropzone";
-import { mergePdf } from "@/service/api";
+import { useDropzone } from "react-dropzone";
 
-const UploadFile = () => {
+type Props = {
+  onClick: (files: File[]) => Promise<void>;
+};
+
+const UploadFile = ({ onClick }: Props) => {
   const [files, setFiles] = useState<File[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      "application/pdf": [],
+    },
+    onDrop: (acceptedFiles) => {
+      handleDrop(acceptedFiles);
+    },
+  });
 
   const handleDrop = (acceptedFiles: File[]) => {
     setFiles((prevFiles) =>
@@ -18,34 +28,43 @@ const UploadFile = () => {
     );
   };
 
-  const handleMerge = async () => {
+  const handleClick = async () => {
     if (!files) {
       setError("ファイルが選択されていません");
       return;
     }
     setLoading(true);
     setError("");
-    await mergePdf(files);
+    await onClick(files);
     setLoading(false);
   };
 
   return (
     <div className="m-8 flex w-1/2 flex-col items-center justify-center gap-8">
-      <Text className="text-4xl font-semibold text-slate-600">File Upload</Text>
-      <Dropzone
-        className="flex w-1/2 flex-col items-center gap-4 rounded-lg border-4 border-dashed"
-        focusBorderColor="gray.400"
-        onDrop={handleDrop}
+      <p className="text-4xl font-semibold text-slate-600">File Upload</p>
+      <div
+        {...getRootProps({
+          className: `flex w-full flex-col items-center justify-center gap-4 p-8 border-4 border-dashed rounded-lg text-center cursor-pointer ${
+            isDragActive
+              ? "border-blue-500 bg-blue-100"
+              : "border-gray-300 bg-gray-50"
+          }`,
+        })}
       >
-        <UploadIcon size="xl" color="gray" className="animate-pulse" />
-        <Text className="font-sans text-2xl text-slate-500">
-          Drag and drop your file here
-        </Text>
-        <Text className="font-sans text-2xl text-slate-500">or</Text>
-        <div className="pb-4">
-          <Button color="blue" size="large" text="PDFファイルを選択" />
-        </div>
-      </Dropzone>
+        <input {...getInputProps()} />
+        <UploadIcon
+          size="xl"
+          color={isDragActive ? "blue" : "gray"}
+          className="animate-pulse"
+        />
+        <p className="font-sans text-xl text-slate-500">
+          {isDragActive
+            ? "ここにファイルをドロップ"
+            : "ドラッグドロップでPDFファイルをここに"}
+        </p>
+        <p className="font-sans text-xl text-slate-500">または</p>
+        <Button color="blue" size="large" text="ファイルを選択" />
+      </div>
 
       {files && (
         <div className="mt-4 text-lg text-slate-700">
@@ -61,7 +80,7 @@ const UploadFile = () => {
         color="green"
         size="large"
         text={loading ? "アップロード中..." : "アップロード"}
-        onClick={handleMerge}
+        onClick={handleClick}
       />
     </div>
   );
