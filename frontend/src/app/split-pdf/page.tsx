@@ -1,7 +1,8 @@
+"use client";
 import UploadFile from "@/components/layout/uploadFile";
 
 const SplitPdf = () => {
-  const handleSplit = async (file: File[]) => {
+  const handleSplit = (file: File[]) => {
     console.log("Splitting PDFs", file);
   };
 
