@@ -16,13 +16,13 @@ const Header = () => {
           href="/split-pdf"
           className="flex flex-row items-center gap-2 text-slate-600"
         >
-          <p className="text-2xl font-bold">Split PDF</p>
+          <p className="text-2xl font-bold">PDF 分割</p>
         </Link>
         <Link
           href="/merge-pdf"
           className="flex flex-row items-center gap-2 text-slate-600"
         >
-          <p className="text-2xl font-bold">Merge PDF</p>
+          <p className="text-2xl font-bold">PDF 結合</p>
         </Link>
       </div>
     </header>
