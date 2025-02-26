@@ -16,6 +16,7 @@ func main() {
 		AllowCredentials: true,
 	})
 	http.HandleFunc("/merge", handler.MergePDFHandler)
+	http.HandleFunc("/split", handler.SplitPDFHandler)
 
 	handler := c.Handler(http.DefaultServeMux)
 	port := ":8080"

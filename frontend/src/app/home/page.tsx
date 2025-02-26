@@ -1,6 +1,4 @@
 "use client";
-
-import { Text } from "@yamada-ui/react";
 import Link from "next/link";
 
 const Home = () => {
@@ -11,12 +9,12 @@ const Home = () => {
           PDFファイルの編集を簡単に
         </h1>
         <div>
-          <Text className="mb-6 text-2xl font-semibold">
+          <p className="mb-6 text-2xl font-semibold">
             あなたのPDFファイルを簡単に編集
-          </Text>
-          <Text className="mb-6 text-xl font-semibold">
+          </p>
+          <p className="mb-6 text-xl font-semibold">
             データの保存は一切行わないので、安心してご利用いただけます。
-          </Text>
+          </p>
         </div>
         <div className="flex flex-row items-center justify-center gap-12">
           <Link href="/split-pdf">
