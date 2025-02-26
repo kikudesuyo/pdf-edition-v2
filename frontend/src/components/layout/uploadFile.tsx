@@ -14,9 +14,7 @@ const UploadFile = ({ onClick }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      "application/pdf": [],
-    },
+    accept: {},
     onDrop: (acceptedFiles) => {
       handleDrop(acceptedFiles);
     },
