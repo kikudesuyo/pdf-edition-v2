@@ -35,10 +35,10 @@ export const splitPdf = async (files: File[]) => {
       },
       responseType: "blob",
     });
-    const pdfBlob = response.data;
+    const zipBlob = response.data;
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(pdfBlob);
-    link.download = "split.pdf";
+    link.href = URL.createObjectURL(zipBlob);
+    link.download = "split_pdfs.zip";
     link.click();
   } catch (error) {
     console.error("Error splitting PDF:", error);
