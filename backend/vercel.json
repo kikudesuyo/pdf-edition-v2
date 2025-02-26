@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/split_pdf",
+      "dest": "/api/split_pdf/index.go"
+    },
+    {
+      "src": "/api/merge_pdf",
+      "dest": "/api/merge_pdf.go"
+    }
+  ]
+}
