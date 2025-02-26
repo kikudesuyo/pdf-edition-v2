@@ -7,10 +7,10 @@ import (
 	"github.com/unidoc/unipdf/v3/model"
 )
 
-func MergePDF(blobs [][]byte) ([]byte, error) {
+func MergePDF(files [][]byte) ([]byte, error) {
 	pdfWriter := model.NewPdfWriter()
-	for _, blob := range blobs {
-		err := mergePDFPages(blob, &pdfWriter)
+	for _, file := range files {
+		err := mergePDFPages(file, &pdfWriter)
 		if err != nil {
 			return nil, fmt.Errorf("fail to merge PDF: %v", err)
 		}
@@ -23,8 +23,8 @@ func MergePDF(blobs [][]byte) ([]byte, error) {
 	return mergedPDF.Bytes(), nil
 }
 
-func mergePDFPages(blob []byte, pdfwriter *model.PdfWriter) error {
-	pdfReader, err := model.NewPdfReader(bytes.NewReader(blob))
+func mergePDFPages(file []byte, pdfwriter *model.PdfWriter) error {
+	pdfReader, err := model.NewPdfReader(bytes.NewReader(file))
 	if err != nil {
 		return fmt.Errorf("fail to read PDF: %v", err)
 	}
