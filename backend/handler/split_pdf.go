@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/backend/internal/pdf"
-	"github.com/kikudesuyo/pdf-edition-v2/backend/internal/zip"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/pdf"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/zip"
 )
 
 func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {

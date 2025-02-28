@@ -7,14 +7,10 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/backend/internal/pdf"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/pdf"
 )
 
 func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
 		http.Error(w, "fail to parse file:", http.StatusInternalServerError)
