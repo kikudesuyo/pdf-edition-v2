@@ -8,6 +8,7 @@ import (
 )
 
 func MergePDF(files [][]byte) ([]byte, error) {
+	env()
 	pdfWriter := model.NewPdfWriter()
 	for _, file := range files {
 		err := mergePDFPages(file, &pdfWriter)
