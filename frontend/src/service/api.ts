@@ -34,7 +34,7 @@ export const splitPdf = async (files: File[]) => {
       formData.append("files", file);
     });
     const response = await axios.post(
-      "https://pdf-edtion-v2-backend.vercel.app/split",
+      "https://pdf-edition-v2-backend.vercel.app/api/split_pdf",
       formData,
       {
         headers: {
