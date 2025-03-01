@@ -12,13 +12,15 @@ const Footer = () => {
         </a>
       </div>
       <div className="flex flex-row gap-4">
-        <GitHubIcon size="sm" />
+        <a href="https://github.com/kikudesuyo/pdf-edition-v2">
+          <GitHubIcon size="sm" />
+        </a>
         <p className="text-xl font-semibold">Github:</p>
         <a
-          href="https://github.com/kikudesuyo"
+          href="https://github.com/kikudesuyo/pdf-edition-v2"
           className="text-xl font-semibold"
         >
-          https://github.com/kikudesuyo
+          https://github.com/kikudesuyo/pdf-edition-v2
         </a>
       </div>
     </footer>

@@ -6,7 +6,7 @@ import { mergePdf } from "@/service/api";
 const MergePdf = () => {
   return (
     <div className="flex items-center justify-center">
-      <UploadFile onClick={mergePdf} />
+      <UploadFile onClick={mergePdf} title="PDF 結合" />
     </div>
   );
 };

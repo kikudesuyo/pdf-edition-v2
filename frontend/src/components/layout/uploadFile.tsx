@@ -7,9 +7,10 @@ import { useDropzone } from "react-dropzone";
 
 type Props = {
   onClick: (files: File[]) => Promise<void>;
+  title: string;
 };
 
-const UploadFile = ({ onClick }: Props) => {
+const UploadFile = ({ onClick, title }: Props) => {
   const [files, setFiles] = useState<File[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -39,7 +40,7 @@ const UploadFile = ({ onClick }: Props) => {
 
   return (
     <div className="m-8 flex w-1/2 flex-col items-center justify-center gap-8">
-      <p className="text-4xl font-semibold text-slate-600">File Upload</p>
+      <p className="text-4xl font-semibold text-slate-600">{title}</p>
       <div
         {...getRootProps({
           className: `flex w-full flex-col items-center justify-center gap-4 p-8 border-4 border-dashed rounded-lg text-center cursor-pointer ${
