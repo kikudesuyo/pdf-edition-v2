@@ -7,11 +7,27 @@ import (
 	"github.com/kikudesuyo/pdf-edition-v2/backend/handler"
 )
 
+var allowedOrigins = []string{
+	"http://localhost:3000",
+	"https://pdf-edition-v2.vercel.app",
+}
+
+func isOriginAllowed(origin string) bool {
+	for _, o := range allowedOrigins {
+		if o == origin {
+			return true
+		}
+	}
+	return false
+}
+
 func CORSMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		w.Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+		origin := r.Header.Get("Origin")
+		if isOriginAllowed(origin) {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		}
 
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
