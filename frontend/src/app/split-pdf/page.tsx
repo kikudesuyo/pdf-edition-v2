@@ -1,6 +1,6 @@
 "use client";
 import UploadFile from "@/components/layout/uploadFile";
-import { splitPdf } from "@/service/api";
+import { splitPdf } from "@/api/pdfApi";
 
 const SplitPdf = () => {
   return (

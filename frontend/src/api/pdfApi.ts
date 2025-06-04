@@ -1,4 +1,4 @@
-import axios from "axios";
+import { requestPost } from "@/api/request";
 
 export const mergePdf = async (files: File[]) => {
   try {
@@ -6,18 +6,9 @@ export const mergePdf = async (files: File[]) => {
     files.forEach((file) => {
       formData.append("files", file);
     });
-    console.log("formData", formData);
-    const response = await axios.post(
-      "https://pdf-edition-v2-backend.vercel.app/api/merge_pdf",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        responseType: "blob",
-      }
-    );
-    const pdfBlob = response.data;
+    const pdfBlob = await requestPost<Blob>("/api/merge-pdf", formData, {
+      responseType: "blob",
+    });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(pdfBlob);
     link.download = "merged.pdf";
@@ -33,17 +24,9 @@ export const splitPdf = async (files: File[]) => {
     files.forEach((file) => {
       formData.append("files", file);
     });
-    const response = await axios.post(
-      "https://pdf-edition-v2-backend.vercel.app/api/split_pdf",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        responseType: "blob",
-      }
-    );
-    const zipBlob = response.data;
+    const zipBlob = await requestPost<Blob>("/api/split-pdf", formData, {
+      responseType: "blob",
+    });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(zipBlob);
     link.download = "split_pdfs.zip";

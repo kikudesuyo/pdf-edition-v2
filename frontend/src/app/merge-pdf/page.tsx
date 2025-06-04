@@ -1,7 +1,7 @@
 "use client";
 
 import UploadFile from "@/components/layout/uploadFile";
-import { mergePdf } from "@/service/api";
+import { mergePdf } from "@/api/pdfApi";
 
 const MergePdf = () => {
   return (
