@@ -60,8 +60,3 @@ gcloud run deploy pdf-edition-v2-api \
 Allow unauthenticated invocations to [pdf-edition-v2-api] (y/N)?  y
 ```
 
-### 設定内容
-
-region: asia-northeast1
-認証: なし
-リクエスト

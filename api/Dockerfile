@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.23
 
 
 WORKDIR /app
@@ -9,9 +9,10 @@ RUN go mod download
 
 COPY . .
 
-RUN  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o httpserver ./cmd/httpserver
-
+# Build the Go application
+RUN  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o  main ./cmd/main.go
 
 EXPOSE 8080
 
-CMD ["./httpserver"]
+# execute the binary
+CMD ["./main"]
