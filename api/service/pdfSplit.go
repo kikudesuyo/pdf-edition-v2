@@ -8,7 +8,6 @@ import (
 )
 
 func SplitPDF(file []byte) ([][]byte, error) {
-	//TODO: 開始ページと終了ページを指定できるようにする(配列にしてその配列順にページを追加していってもいいかもしれない)
 	env()
 	pdfReader, err := model.NewPdfReader(bytes.NewReader(file))
 	if err != nil {

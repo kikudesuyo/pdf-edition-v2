@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"io"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -49,8 +50,8 @@ func filesToBytes(files []*multipart.FileHeader) ([][]byte, error) {
 		}
 		defer f.Close()
 
-		buf := make([]byte, file.Size)
-		if _, err := f.Read(buf); err != nil {
+		buf, err := io.ReadAll(f)
+		if err != nil {
 			return nil, err
 		}
 		byteArrays = append(byteArrays, buf)
