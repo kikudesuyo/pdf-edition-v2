@@ -1,15 +1,26 @@
-## ローカル環境(Docker)での開発
+## ローカル環境での開発
 
-### ビルド
+ポート: 8080
+
+以下の1,2のいずれかの方法でサーバーを起動します。
+
+### 1. Dockerを使用した開発環境の構築
+
+#### ビルド
 ```bash
 docker build -t pdf-edition-v2-api .
 ```
 
-### 起動
-- ポート: 8080
+#### 起動
 
 ```bash
 docker run -d -p 8080:8080 --name pdf-edition-v2-api  pdf-edition-v2-api
+```
+
+### 2. Dockerを使用せずにサーバーを起動させる場合
+
+```bash
+make dev
 ```
 
 ## デプロイ
@@ -41,4 +52,3 @@ DockerイメージをCloud Runにデプロイします。
 ```bash
 make deploy
 ```
-

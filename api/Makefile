@@ -1,4 +1,4 @@
-.PHONY: docker-push deploy
+.PHONY: dev docker-push deploy
 
 GCP_PROJECT_ID = pdf-edition-v2
 GCP_REGION = asia-northeast1
@@ -12,6 +12,9 @@ IMAGE_TAG ?= latest
 
 ARTIFACT_API_IMAGE_URI = ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${ARTIFACT_REPOSITORY}/${ARTIFACT_IMAGE_NAME}:${IMAGE_TAG}
 
+
+dev:
+	go run cmd/main.go
 
 docker-push:
 	docker build -t ${ARTIFACT_API_IMAGE_URI} .
