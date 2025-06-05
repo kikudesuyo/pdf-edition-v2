@@ -1,7 +1,7 @@
 .PHONY: docker-push deploy
 
 GCP_PROJECT_ID = pdf-edition-v2
-GCP_REGION = asia-southeast1
+GCP_REGION = asia-northeast1
 
 ARTIFACT_REPOSITORY = backend
 ARTIFACT_IMAGE_NAME = api
