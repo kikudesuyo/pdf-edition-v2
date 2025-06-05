@@ -6,8 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/backend/pdf"
-	"github.com/kikudesuyo/pdf-edition-v2/backend/zip"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
 func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,13 +35,13 @@ func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	splitPdfs, err := pdf.SplitPDF(buf)
+	splitPdfs, err := service.SplitPDF(buf)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to split PDF: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	zipfile, err := zip.CreateZip(splitPdfs, "pdf")
+	zipfile, err := service.CreateZip(splitPdfs, "pdf")
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to create zip: %v", err), http.StatusInternalServerError)
 		return

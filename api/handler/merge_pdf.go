@@ -7,7 +7,7 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/backend/pdf"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
 func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	mergedPDF, err := pdf.MergePDF(pdffiles)
+	mergedPDF, err := service.MergePDF(pdffiles)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Println(err)

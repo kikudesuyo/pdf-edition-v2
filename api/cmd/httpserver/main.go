@@ -26,7 +26,7 @@ func CORSMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		origin := r.Header.Get("Origin")
 		if isOriginAllowed(origin) {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		}
 
 		if r.Method == "OPTIONS" {
