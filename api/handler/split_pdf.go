@@ -1,14 +1,12 @@
 package handler
 
 import (
-	"archive/zip"
-	"bytes"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/internal/pdf"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
 func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
@@ -37,39 +35,21 @@ func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	splitPdfs, err := pdf.SplitPDF(buf)
+	splitPdfs, err := service.SplitPDF(buf)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to split PDF: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	// ZIP ファイルに圧縮
-	var zipBuffer bytes.Buffer
-	zipWriter := zip.NewWriter(&zipBuffer)
-
-	for i, pdfBytes := range splitPdfs {
-		f, err := zipWriter.Create(fmt.Sprintf("page_%d.pdf", i+1))
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Failed to create ZIP entry: %v", err), http.StatusInternalServerError)
-			return
-		}
-		_, err = f.Write(pdfBytes)
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Failed to write ZIP entry: %v", err), http.StatusInternalServerError)
-			return
-		}
-	}
-
-	err = zipWriter.Close()
+	zipfile, err := service.CreateZip(splitPdfs, "pdf")
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to finalize ZIP: %v", err), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Failed to create zip: %v", err), http.StatusInternalServerError)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/zip")
 	w.Header().Set("Content-Disposition", `attachment; filename="split_pdfs.zip"`)
 
-	_, err = w.Write(zipBuffer.Bytes())
+	_, err = w.Write(zipfile)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to write response: %v", err), http.StatusInternalServerError)
 		return

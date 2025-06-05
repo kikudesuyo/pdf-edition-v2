@@ -3,31 +3,36 @@ package handler
 import (
 	"fmt"
 	"io"
+	"log"
 	"mime/multipart"
 	"net/http"
 
-	"github.com/kikudesuyo/pdf-edition-v2/internal/pdf"
+	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
 func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
 		http.Error(w, "fail to parse file:", http.StatusInternalServerError)
+		log.Println("fail to parse file:", err)
 		return
 	}
 	files, ok := r.MultipartForm.File["files"]
 	if !ok {
 		http.Error(w, "files not uploaded", http.StatusBadRequest)
+		log.Println("files not uploaded")
 		return
 	}
-	pdfBlobs, err := readPDFFiles(files)
+	pdffiles, err := readPDFFiles(files)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println(err)
 		return
 	}
-	mergedPDF, err := pdf.MergePDF(pdfBlobs)
+	mergedPDF, err := service.MergePDF(pdffiles)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println(err)
 		return
 	}
 	w.Header().Set("Content-Type", "application/pdf")
@@ -36,7 +41,7 @@ func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func readPDFFiles(files []*multipart.FileHeader) ([][]byte, error) {
-	var pdfBlobs [][]byte
+	var pdffiles [][]byte
 
 	for _, file := range files {
 		f, err := file.Open()
@@ -49,8 +54,8 @@ func readPDFFiles(files []*multipart.FileHeader) ([][]byte, error) {
 		if _, err := f.Read(buf); err != nil && err != io.EOF {
 			return nil, fmt.Errorf("fail to read file: %v", err)
 		}
-		pdfBlobs = append(pdfBlobs, buf)
+		pdffiles = append(pdffiles, buf)
 	}
 
-	return pdfBlobs, nil
+	return pdffiles, nil
 }
