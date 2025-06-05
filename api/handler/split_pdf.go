@@ -47,7 +47,6 @@ func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/zip")
-	w.Header().Set("Content-Disposition", `attachment; filename="split_pdfs.zip"`)
 
 	_, err = w.Write(zipfile)
 	if err != nil {
