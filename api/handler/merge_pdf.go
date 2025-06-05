@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"mime/multipart"
@@ -11,51 +10,51 @@ import (
 )
 
 func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseMultipartForm(10 << 20)
-	if err != nil {
-		http.Error(w, "fail to parse file:", http.StatusInternalServerError)
-		log.Println("fail to parse file:", err)
+	if err := r.ParseMultipartForm(10 << 20); err != nil {
+		http.Error(w, "fail to parse multipart form", http.StatusInternalServerError)
+		log.Println("fail to parse multipart form:", err)
 		return
 	}
+
 	files, ok := r.MultipartForm.File["files"]
 	if !ok {
 		http.Error(w, "files not uploaded", http.StatusBadRequest)
 		log.Println("files not uploaded")
 		return
 	}
-	pdffiles, err := readPDFFiles(files)
+
+	fileBytes, err := filesToBytes(files)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Println(err)
+		http.Error(w, "fail to read files", http.StatusInternalServerError)
+		log.Println("fail to read files:", err)
 		return
 	}
-	mergedPDF, err := service.MergePDF(pdffiles)
+
+	mergedPDF, err := service.MergePDF(fileBytes)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Println(err)
+		http.Error(w, "fail to merge pdf", http.StatusInternalServerError)
+		log.Println("fail to merge pdf:", err)
 		return
 	}
+
 	w.Header().Set("Content-Type", "application/pdf")
-	w.Header().Set("Content-Disposition", `attachment; filename="merged.pdf"`)
 	w.Write(mergedPDF)
 }
 
-func readPDFFiles(files []*multipart.FileHeader) ([][]byte, error) {
-	var pdffiles [][]byte
-
+func filesToBytes(files []*multipart.FileHeader) ([][]byte, error) {
+	var byteArrays [][]byte
 	for _, file := range files {
 		f, err := file.Open()
 		if err != nil {
-			return nil, fmt.Errorf("fail to open file: %v", err)
+			return nil, err
 		}
 		defer f.Close()
 
-		buf := make([]byte, file.Size)
-		if _, err := f.Read(buf); err != nil && err != io.EOF {
-			return nil, fmt.Errorf("fail to read file: %v", err)
+		buf, err := io.ReadAll(f)
+		if err != nil {
+			return nil, err
 		}
-		pdffiles = append(pdffiles, buf)
+		byteArrays = append(byteArrays, buf)
 	}
-
-	return pdffiles, nil
+	return byteArrays, nil
 }

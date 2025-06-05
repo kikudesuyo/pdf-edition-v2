@@ -8,23 +8,24 @@ import (
 )
 
 func MergePDF(files [][]byte) ([]byte, error) {
+	// files: 複数のPDFファイル
 	env()
 	pdfWriter := model.NewPdfWriter()
 	for _, file := range files {
-		err := mergePDFPages(file, &pdfWriter)
-		if err != nil {
+		if err := appendPDFPages(file, &pdfWriter); err != nil {
 			return nil, fmt.Errorf("fail to merge PDF: %v", err)
 		}
 	}
+
 	var mergedPDF bytes.Buffer
-	err := pdfWriter.Write(&mergedPDF)
-	if err != nil {
+	if err := pdfWriter.Write(&mergedPDF); err != nil {
 		return nil, fmt.Errorf("fail to write PDF: %v", err)
 	}
+
 	return mergedPDF.Bytes(), nil
 }
 
-func mergePDFPages(file []byte, pdfwriter *model.PdfWriter) error {
+func appendPDFPages(file []byte, pdfWriter *model.PdfWriter) error {
 	pdfReader, err := model.NewPdfReader(bytes.NewReader(file))
 	if err != nil {
 		return fmt.Errorf("fail to read PDF: %v", err)
@@ -33,13 +34,13 @@ func mergePDFPages(file []byte, pdfwriter *model.PdfWriter) error {
 	if err != nil {
 		return fmt.Errorf("fail to get page num: %v", err)
 	}
+
 	for i := 1; i <= numPages; i++ {
 		page, err := pdfReader.GetPage(i)
 		if err != nil {
 			return fmt.Errorf("fail to get page data: %v", err)
 		}
-		err = pdfwriter.AddPage(page)
-		if err != nil {
+		if err := pdfWriter.AddPage(page); err != nil {
 			return fmt.Errorf("fail to append PDF: %v", err)
 		}
 	}

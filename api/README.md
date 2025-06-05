@@ -1,14 +1,27 @@
-
-### Docker(ローカル環境)
-
-ビルド
-docker build -t pdf-edition-v2-api .
-
-起動
-docker run -d -p 8080:8080 --name pdf-edition-v2-api  pdf-edition-v2-api
+## ローカル環境での開発
 
 ポート: 8080
 
+以下の1,2のいずれかの方法でサーバーを起動します。
+
+### 1. Dockerを使用した開発環境の構築
+
+#### ビルド
+```bash
+docker build -t pdf-edition-v2-api .
+```
+
+#### 起動
+
+```bash
+docker run -d -p 8080:8080 --name pdf-edition-v2-api  pdf-edition-v2-api
+```
+
+### 2. Dockerを使用せずにサーバーを起動させる場合
+
+```bash
+make dev
+```
 
 ## デプロイ
 
@@ -17,7 +30,7 @@ Google Cloud Platform を採用
 
 ### Artifact Registryにリポジトリ作成(初回のみ)
 
-リポジトリ名: backend
+#### リポジトリ名: backend
 
 ```bash
 gcloud artifacts repositories create backend \
@@ -26,37 +39,16 @@ gcloud artifacts repositories create backend \
   --description="Docker repository for pdf-edition-v2 backend images"
 ```
 
-### APIのDockerイメージをビルドしてArtifact Registryにプッシュする
-
-イメージ名: api
-
-docker ビルド
-```bash
-docker build -t asia-northeast1-docker.pkg.dev/pdf-edition-v2/backend/api .
-```
-
-docker push
-```bash
-docker push asia-northeast1-docker.pkg.dev/pdf-edition-v2/backend/api
-```
-
-### Artifact Registry にプッシュしたイメージをCloud Runにデプロイ
-
-#### GUiでデプロイ
-GUIで作成したArtifact Registry内のリポジトリを選択してデプロイをする
-
-#### GLIでデプロイ
+### DockerイメージをビルドしてArtifact Registryにプッシュする
 
 ```bash
-gcloud run deploy pdf-edition-v2-api \
-  --image=asia-northeast1-docker.pkg.dev/pdf-edition-v2/backend/api \
-  --region=asia-northeast1
-  --allow-unauthenticated 
-``` 
-
-初回のデプロイのメッセージ
-```
-# Yesを選択する
-Allow unauthenticated invocations to [pdf-edition-v2-api] (y/N)?  y
+make docker-push
 ```
 
+### Cloud Runへデプロイ
+
+DockerイメージをCloud Runにデプロイします。
+
+```bash
+make deploy
+```
