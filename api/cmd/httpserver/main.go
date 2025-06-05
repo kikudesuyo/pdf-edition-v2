@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/kikudesuyo/pdf-edition-v2/backend/handler"
 )
@@ -42,9 +43,13 @@ func main() {
 	http.HandleFunc("/api/merge-pdf", CORSMiddleware(handler.MergePDFHandler))
 	http.HandleFunc("/api/split-pdf", CORSMiddleware(handler.SplitPDFHandler))
 
-	port := ":8080"
-	log.Printf("Server starting on %s...", port)
-	if err := http.ListenAndServe(port, nil); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not set
+	}
+	addr := ":" + port
+	log.Printf("Server starting on %s...", addr)
+	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatalf("Could not start server: %v", err)
 	}
 }

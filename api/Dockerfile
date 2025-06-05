@@ -9,7 +9,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o httpserver ./cmd/httpserver
+RUN  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o httpserver ./cmd/httpserver
 
 
 EXPOSE 8080
