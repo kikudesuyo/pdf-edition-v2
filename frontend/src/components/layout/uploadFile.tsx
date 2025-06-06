@@ -1,46 +1,24 @@
-"use client";
-
-import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
 import UploadIcon from "@/assets/icons/uploadIcon";
 import Button from "@/components/common/button";
-import { useDropzone } from "react-dropzone";
 
 type Props = {
-  onClick: (files: File[]) => Promise<void>;
   title: string;
+  onUpload: (files: File[]) => void;
 };
 
-const UploadFile = ({ onClick, title }: Props) => {
-  const [files, setFiles] = useState<File[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+const UploadFile = ({ title, onUpload }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {},
+    accept: { "application/pdf": [] },
     onDrop: (acceptedFiles) => {
-      handleDrop(acceptedFiles);
+      onUpload(acceptedFiles);
     },
   });
-
-  const handleDrop = (acceptedFiles: File[]) => {
-    setFiles((prevFiles) =>
-      prevFiles ? [...prevFiles, ...acceptedFiles] : acceptedFiles
-    );
-  };
-
-  const handleClick = async () => {
-    if (!files) {
-      setError("ファイルが選択されていません");
-      return;
-    }
-    setLoading(true);
-    setError("");
-    await onClick(files);
-    setLoading(false);
-  };
 
   return (
     <div className="m-8 flex w-1/2 flex-col items-center justify-center gap-8">
       <p className="text-4xl font-semibold text-slate-600">{title}</p>
+
       <div
         {...getRootProps({
           className: `flex w-full flex-col items-center justify-center gap-4 p-8 border-4 border-dashed rounded-lg text-center cursor-pointer ${
@@ -64,23 +42,6 @@ const UploadFile = ({ onClick, title }: Props) => {
         <p className="font-sans text-xl text-slate-500">または</p>
         <Button color="blue" size="large" text="ファイルを選択" />
       </div>
-
-      {files && (
-        <div className="mt-4 text-lg text-slate-700">
-          {files.map((file, index) => (
-            <div key={index}>{file.name}</div>
-          ))}
-        </div>
-      )}
-
-      {error && <div className="mt-4 text-red-600">{error}</div>}
-
-      <Button
-        color="green"
-        size="large"
-        text={loading ? "アップロード中..." : "アップロード"}
-        onClick={handleClick}
-      />
     </div>
   );
 };
