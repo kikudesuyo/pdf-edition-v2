@@ -53,10 +53,10 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
           items={fileItems.map((fileItem) => fileItem.uid)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className="list-none rounded border bg-blue-50 p-4 transition-all">
+          <ul className="min-h-60 list-none rounded border-2 bg-blue-50 p-4 text-sm transition-all">
             {fileItems.length === 0 ? (
               <li className="text-center text-gray-500">
-                ファイルをアップロードしてください
+                ファイルが選択されていません
               </li>
             ) : (
               fileItems.map((fileItem) => (
@@ -64,6 +64,9 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
                   key={fileItem.uid}
                   id={fileItem.uid}
                   file={fileItem.file}
+                  index={fileItems.findIndex(
+                    (item) => item.uid === fileItem.uid
+                  )}
                 />
               ))
             )}

@@ -1,4 +1,5 @@
 export const sizeStyle = {
+  xs: "w-4 h-4",
   sm: "w-8 h-8",
   md: "w-16 h-16",
   lg: "w-24 h-24",
@@ -11,6 +12,7 @@ export const colorStyle = {
   white: "text-white",
   black: "text-black",
   red: "text-red-500",
+  orange: "text-orange-500",
   green: "text-green-500",
   blue: "text-blue-500",
   yellow: "text-yellow-500",
