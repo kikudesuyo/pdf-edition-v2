@@ -11,7 +11,7 @@ import (
 
 var once sync.Once
 
-func setupUniPDFLicnese() {
+func setupUniPDFLicense() {
 	once.Do(func() {
 		if os.Getenv("UNICODE_LICENSE") == "" {
 			err := godotenv.Load()

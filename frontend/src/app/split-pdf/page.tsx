@@ -46,7 +46,7 @@ const SplitPdf = () => {
           <Button
             color="green"
             size="large"
-            text={loading ? "処理中..." : "PDFを結合"}
+            text={loading ? "処理中..." : "PDFを分割"}
             onClick={handleClick}
           />
         </div>
