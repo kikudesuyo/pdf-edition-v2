@@ -16,7 +16,7 @@ const UploadFile = ({ title, onUpload }: Props) => {
   });
 
   return (
-    <div className="m-8 flex w-1/2 flex-col items-center justify-center gap-8">
+    <div className="m-8 flex flex-col items-center justify-center gap-8">
       <p className="text-4xl font-semibold text-slate-600">{title}</p>
 
       <div

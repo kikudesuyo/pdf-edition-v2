@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UploadFile from "@/components/layout/uploadFile";
+import UploadFile from "@/components/common/uploadFile";
 import Button from "@/components/common/button";
 import { splitPdf } from "@/api/pdfApi";
 
