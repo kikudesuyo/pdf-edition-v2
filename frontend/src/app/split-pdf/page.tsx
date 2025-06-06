@@ -4,6 +4,7 @@ import { useState } from "react";
 import UploadFile from "@/components/common/uploadFile";
 import Button from "@/components/common/button";
 import { splitPdf } from "@/api/pdfApi";
+import FileItem from "@/components/ui/fileItem";
 
 const SplitPdf = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -36,24 +37,32 @@ const SplitPdf = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <UploadFile onUpload={handleUpload} />
-
-      {file && (
-        <div className="text-slate-700">
-          <p className="font-semibold">選択中のファイル:</p>
-          <p className="text-lg">{file.name}</p>
+    <div className="flex flex-col items-center justify-center gap-8 p-8">
+      <p className="text-5xl font-semibold text-slate-600">PDF分割</p>
+      <div className="flex w-full">
+        <div className="flex w-2/3 flex-col items-center justify-center gap-4">
+          <UploadFile onUpload={handleUpload} />
+          {error && <div className="text-red-500">{error}</div>}
+          <Button
+            color="green"
+            size="large"
+            text={loading ? "処理中..." : "PDFを結合"}
+            onClick={handleClick}
+          />
         </div>
-      )}
-
-      {error && <div className="text-red-500">{error}</div>}
-
-      <Button
-        color="green"
-        size="large"
-        text={loading ? "処理中..." : "PDFを分割"}
-        onClick={handleClick}
-      />
+        <div className="flex w-1/4 flex-col gap-12">
+          <p className="text-center text-3xl font-semibold text-slate-600">
+            選択中のファイル
+          </p>
+          {file ? (
+            <FileItem file={file} />
+          ) : (
+            <div className="text-center text-gray-500">
+              ファイルが選択されていません
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

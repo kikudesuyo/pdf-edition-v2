@@ -64,9 +64,6 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
                   key={fileItem.uid}
                   id={fileItem.uid}
                   file={fileItem.file}
-                  index={fileItems.findIndex(
-                    (item) => item.uid === fileItem.uid
-                  )}
                 />
               ))
             )}
