@@ -3,11 +3,10 @@ import UploadIcon from "@/assets/icons/uploadIcon";
 import Button from "@/components/common/button";
 
 type Props = {
-  title: string;
   onUpload: (files: File[]) => void;
 };
 
-const UploadFile = ({ title, onUpload }: Props) => {
+const UploadFile = ({ onUpload }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "application/pdf": [] },
     onDrop: (acceptedFiles) => {
@@ -17,8 +16,6 @@ const UploadFile = ({ title, onUpload }: Props) => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center gap-8">
-      <p className="text-4xl font-semibold text-slate-600">{title}</p>
-
       <div
         {...getRootProps({
           className: `flex w-full flex-col items-center justify-center gap-4 p-8 border-4 border-dashed rounded-lg text-center cursor-pointer ${

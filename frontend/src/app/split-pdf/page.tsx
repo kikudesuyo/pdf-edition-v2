@@ -37,7 +37,7 @@ const SplitPdf = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <UploadFile title="PDF 分割" onUpload={handleUpload} />
+      <UploadFile onUpload={handleUpload} />
 
       {file && (
         <div className="text-slate-700">
