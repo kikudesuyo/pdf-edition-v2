@@ -9,7 +9,7 @@ import (
 
 func MergePDF(files [][]byte) ([]byte, error) {
 	// files: 複数のPDFファイル
-	env()
+	setupUniPDFLicnese()
 	pdfWriter := model.NewPdfWriter()
 	for _, file := range files {
 		if err := appendPDFPages(file, &pdfWriter); err != nil {

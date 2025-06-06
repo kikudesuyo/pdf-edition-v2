@@ -8,7 +8,7 @@ import (
 )
 
 func SplitPDF(file []byte) ([][]byte, error) {
-	env()
+	setupUniPDFLicnese()
 	pdfReader, err := model.NewPdfReader(bytes.NewReader(file))
 	if err != nil {
 		return nil, fmt.Errorf("fail to read pdf: %v", err)
