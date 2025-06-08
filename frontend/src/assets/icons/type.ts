@@ -24,4 +24,5 @@ export type IconProps = {
   size: keyof typeof sizeStyle;
   color?: keyof typeof colorStyle;
   className?: string;
+  onClick?: (e: React.MouseEvent<SVGSVGElement>) => void;
 };

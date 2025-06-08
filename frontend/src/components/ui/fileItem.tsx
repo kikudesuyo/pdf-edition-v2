@@ -1,12 +1,21 @@
+"use strict";
+
 import DragHandleIcon from "@/assets/icons/dragHandleIcon";
 import FileIcon from "@/assets/icons/fileIcon";
+import TrashIcon from "@/assets/icons/TrashIcon";
 import { getFileTypeFromName } from "@/lib/fileTypeDetector";
 
 type FileItemProps = {
   file: File;
+  onDelete: () => void;
+  showDeleteButton?: boolean;
 };
 
-const FileItem = ({ file }: FileItemProps) => {
+const FileItem = ({
+  file,
+  onDelete,
+  showDeleteButton = true,
+}: FileItemProps) => {
   const fileType = getFileTypeFromName(file.name);
 
   return (
@@ -21,6 +30,18 @@ const FileItem = ({ file }: FileItemProps) => {
         </span>
       </div>
       <FileIcon size="xs" fileType={fileType} />
+      {showDeleteButton && onDelete && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          className="ml-2 rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500"
+          aria-label="ファイルを削除"
+        >
+          <TrashIcon size="xs" color="black" />
+        </button>
+      )}
     </div>
   );
 };

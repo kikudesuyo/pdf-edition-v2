@@ -42,6 +42,11 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
     setFiles(newFiles);
   };
 
+  const handleDeleteFile = (uid: string) => {
+    const newFiles = fileItems.filter((fileItem) => fileItem.uid !== uid);
+    setFiles(newFiles);
+  };
+
   return (
     <div>
       <DndContext
@@ -62,8 +67,9 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
               fileItems.map((fileItem) => (
                 <SortableFileItem
                   key={fileItem.uid}
-                  id={fileItem.uid}
                   file={fileItem.file}
+                  id={fileItem.uid}
+                  onDelete={() => handleDeleteFile(fileItem.uid)}
                 />
               ))
             )}
