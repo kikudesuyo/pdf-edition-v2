@@ -26,4 +26,3 @@ deploy:
 		--region ${GCP_REGION} \
 		--project ${GCP_PROJECT_ID} \
 		--allow-unauthenticated 
-
