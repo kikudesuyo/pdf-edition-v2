@@ -16,7 +16,7 @@ func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to parse file", http.StatusInternalServerError)
 		return
 	}
-	files, ok := r.MultipartForm.File["files"]
+	files, ok := r.MultipartForm.File["file"]
 	if !ok || len(files) == 0 {
 		log.Printf("File not provided: %v", http.StatusBadRequest)
 		http.Error(w, "File not provided", http.StatusBadRequest)
