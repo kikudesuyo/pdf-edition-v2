@@ -6,11 +6,7 @@ import { mergePdf } from "@/api/pdfApi";
 import Button from "@/components/common/button";
 import SortableFileItemList from "@/app/merge-pdf/_components/sortableFileItemList";
 import { v4 as uuidv4 } from "uuid";
-
-type FileItem = {
-  uid: string;
-  file: File;
-};
+import type { FileItem } from "@/app/merge-pdf/types";
 
 const MergePdf = () => {
   const [fileItems, setFileItems] = useState<FileItem[]>([]);
@@ -70,4 +66,3 @@ const MergePdf = () => {
 };
 
 export default MergePdf;
-export type { FileItem };

@@ -15,7 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import SortableFileItem from "@/app/merge-pdf/_components/sortableFileItem";
-import { type FileItem } from "@/app/merge-pdf/page";
+import type { FileItem } from "@/app/merge-pdf/types";
 
 type Props = {
   fileItems: FileItem[];
