@@ -48,7 +48,7 @@ const MergePdf = () => {
     <div className="flex flex-col items-center justify-center gap-8 p-8">
       <p className="text-5xl font-semibold text-slate-600">PDF結合</p>
       <div className="flex w-full">
-        <div className="flex w-2/3 flex-col items-center justify-center gap-4">
+        <div className="flex w-1/2 flex-col items-center justify-center gap-4">
           <UploadFile onUpload={handleUpload} />
           {error && <div className="text-red-500">{error}</div>}
           <Button
@@ -58,7 +58,7 @@ const MergePdf = () => {
             onClick={handleClick}
           />
         </div>
-        <div className="flex w-1/4 flex-col gap-12">
+        <div className="flex w-1/2 flex-col gap-12">
           <p className="text-center text-3xl font-semibold text-slate-600">
             ファイル一覧
           </p>

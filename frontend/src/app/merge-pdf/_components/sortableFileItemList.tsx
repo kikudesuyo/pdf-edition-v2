@@ -60,7 +60,7 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
         >
           <ul className="min-h-60 list-none rounded border-2 bg-blue-50 p-4 text-sm transition-all">
             {fileItems.length === 0 ? (
-              <li className="text-center text-gray-500">
+              <li className="text-center text-xl text-gray-500">
                 ファイルが選択されていません
               </li>
             ) : (

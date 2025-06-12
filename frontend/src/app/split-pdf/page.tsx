@@ -4,7 +4,7 @@ import { useState } from "react";
 import UploadFile from "@/components/common/uploadFile";
 import Button from "@/components/common/button";
 import { splitPdf } from "@/api/pdfApi";
-import FileItem from "@/components/ui/fileItem";
+import FileItem from "@/app/split-pdf/_components/fileItem";
 
 const SplitPdf = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -36,11 +36,16 @@ const SplitPdf = () => {
     }
   };
 
+  const handleDeleteFile = () => {
+    setFile(null);
+    setError("");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-8">
       <p className="text-5xl font-semibold text-slate-600">PDF分割</p>
       <div className="flex w-full">
-        <div className="flex w-2/3 flex-col items-center justify-center gap-4">
+        <div className="flex w-1/2 flex-col items-center justify-center gap-4">
           <UploadFile onUpload={handleUpload} />
           {error && <div className="text-red-500">{error}</div>}
           <Button
@@ -50,14 +55,14 @@ const SplitPdf = () => {
             onClick={handleClick}
           />
         </div>
-        <div className="flex w-1/4 flex-col gap-12">
+        <div className="flex w-1/2 flex-col gap-12">
           <p className="text-center text-3xl font-semibold text-slate-600">
             選択中のファイル
           </p>
           {file ? (
-            <FileItem file={file} />
+            <FileItem file={file} onDelete={handleDeleteFile} />
           ) : (
-            <div className="text-center text-gray-500">
+            <div className="list-none rounded border-2 bg-blue-50 p-4 text-center text-gray-500">
               ファイルが選択されていません
             </div>
           )}
