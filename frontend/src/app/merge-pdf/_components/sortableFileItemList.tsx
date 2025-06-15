@@ -81,7 +81,7 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
             items={fileItems.map((fileItem) => fileItem.uid)}
             strategy={verticalListSortingStrategy}
           >
-            <div className="rounded-lg border border-slate-300/20 bg-slate-800/30 p-4 backdrop-blur-sm">
+            <div className="rounded-lg border border-slate-300/20 bg-slate-800/30 p-6 backdrop-blur-sm">
               <div className="mb-4 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-200">
                   ドラッグして順序を変更
@@ -91,7 +91,7 @@ const SortableFileItemList = ({ fileItems, setFiles }: Props) => {
                 </span>
               </div>
 
-              <ul className="custom-scrollbar max-h-80 list-none space-y-0 overflow-y-auto">
+              <ul className="custom-scrollbar max-h-200 list-none space-y-0 overflow-y-auto">
                 {fileItems.map((fileItem) => (
                   <div key={fileItem.uid}>
                     <SortableFileItem
