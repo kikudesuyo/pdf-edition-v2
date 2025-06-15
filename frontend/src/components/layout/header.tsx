@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 flex h-16 flex-row items-center border-b-2 p-3 shadow-lg">
+    <header className="flex h-16 flex-row items-center border-b-2 p-3 shadow-lg">
       <div className="flex flex-row gap-16">
         <Link
           href="/home"
