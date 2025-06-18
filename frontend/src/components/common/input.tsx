@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       disabled={disabled}
-      className={`w-full rounded-lg border border-slate-300/50 bg-white/10 px-4 py-3 text-white placeholder-slate-400 backdrop-blur-sm transition-all duration-200 focus:border-blue-400 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-blue-400/50 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`w-full rounded-lg border border-slate-300/50 bg-white/10 px-4 py-3 font-semibold text-white placeholder-slate-400 backdrop-blur-sm transition-all duration-200 focus:border-blue-400 focus:bg-white/15 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
     />
   );
 };

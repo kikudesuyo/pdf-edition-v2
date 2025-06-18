@@ -109,7 +109,7 @@ const MergePdf = () => {
                   <Input
                     value={filename}
                     onChange={setFilename}
-                    placeholder="merged"
+                    placeholder="merged.pdf"
                     disabled={loading}
                   />
                   <p className="text-xs text-slate-400">
