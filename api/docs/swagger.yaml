@@ -1,0 +1,74 @@
+basePath: /api
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API for PDF operations including merge and split functionality
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: PDF Edition API
+  version: "2.0"
+paths:
+  /merge-pdf:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Merge multiple PDF files into a single PDF document
+      parameters:
+      - description: PDF files to merge
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/pdf
+      responses:
+        "200":
+          description: Merged PDF file
+          schema:
+            type: file
+        "400":
+          description: Bad Request - files not uploaded
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Merge PDF files
+      tags:
+      - PDF Operations
+  /split-pdf:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Split a PDF file into individual pages and return as a ZIP archive
+      parameters:
+      - description: PDF file to split
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/zip
+      responses:
+        "200":
+          description: ZIP archive containing individual PDF pages
+          schema:
+            type: file
+        "400":
+          description: Bad Request - file not provided or multiple files
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Split PDF file
+      tags:
+      - PDF Operations
+swagger: "2.0"

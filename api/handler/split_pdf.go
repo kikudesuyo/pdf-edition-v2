@@ -10,6 +10,17 @@ import (
 	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
+// SplitPDFHandler splits a PDF file into individual pages
+// @Summary Split PDF file
+// @Description Split a PDF file into individual pages and return as a ZIP archive
+// @Tags PDF Operations
+// @Accept multipart/form-data
+// @Produce application/zip
+// @Param file formData file true "PDF file to split"
+// @Success 200 {file} file "ZIP archive containing individual PDF pages"
+// @Failure 400 {string} string "Bad Request - file not provided or multiple files"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /split-pdf [post]
 func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
