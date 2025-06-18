@@ -15,8 +15,6 @@ const MergePdf = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [filename, setFilename] = useState("");
-  console.log(fileItems);
-
   const handleUpload = (uploadedFiles: File[]) => {
     const wrappedFiles: FileItem[] = uploadedFiles.map((file) => ({
       uid: uuidv4(),
