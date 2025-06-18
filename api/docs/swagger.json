@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API for PDF operations including merge and split functionality",
+        "title": "PDF Edition API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "2.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/merge-pdf": {
+            "post": {
+                "description": "Merge multiple PDF files into a single PDF document",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/pdf"
+                ],
+                "tags": [
+                    "PDF Operations"
+                ],
+                "summary": "Merge PDF files",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "PDF files to merge",
+                        "name": "files",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Merged PDF file",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - files not uploaded",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/split-pdf": {
+            "post": {
+                "description": "Split a PDF file into individual pages and return as a ZIP archive",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/zip"
+                ],
+                "tags": [
+                    "PDF Operations"
+                ],
+                "summary": "Split PDF file",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "PDF file to split",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ZIP archive containing individual PDF pages",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - file not provided or multiple files",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

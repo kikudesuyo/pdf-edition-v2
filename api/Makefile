@@ -1,4 +1,4 @@
-.PHONY: dev docker-push deploy
+.PHONY: dev docs docker-push deploy
 
 GCP_PROJECT_ID = pdf-edition-v2
 GCP_REGION = asia-northeast1
@@ -15,6 +15,9 @@ ARTIFACT_API_IMAGE_URI = ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${ARTIFA
 
 dev:
 	go run cmd/main.go
+
+docs:
+	swag init -g cmd/main.go -o docs
 
 docker-push:
 	docker build -t ${ARTIFACT_API_IMAGE_URI} .

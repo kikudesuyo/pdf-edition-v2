@@ -9,6 +9,17 @@ import (
 	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
+// MergePDFHandler merges multiple PDF files into a single PDF
+// @Summary Merge PDF files
+// @Description Merge multiple PDF files into a single PDF document
+// @Tags PDF Operations
+// @Accept multipart/form-data
+// @Produce application/pdf
+// @Param files formData file true "PDF files to merge"
+// @Success 200 {file} file "Merged PDF file"
+// @Failure 400 {string} string "Bad Request - files not uploaded"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /merge-pdf [post]
 func MergePDFHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(10 << 20); err != nil {
 		http.Error(w, "fail to parse multipart form", http.StatusInternalServerError)
