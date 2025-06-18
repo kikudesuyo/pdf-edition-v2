@@ -4,6 +4,7 @@ import { useState } from "react";
 import UploadFile from "@/components/common/uploadFile";
 import { mergePdf } from "@/api/pdfApi";
 import Button from "@/components/common/button";
+import Input from "@/components/common/input";
 import SortableFileItemList from "@/app/merge-pdf/_components/sortableFileItemList";
 import { v4 as uuidv4 } from "uuid";
 import type { FileItem } from "@/app/merge-pdf/types";
@@ -13,8 +14,7 @@ const MergePdf = () => {
   const [fileItems, setFileItems] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  console.log(fileItems);
-
+  const [filename, setFilename] = useState("");
   const handleUpload = (uploadedFiles: File[]) => {
     const wrappedFiles: FileItem[] = uploadedFiles.map((file) => ({
       uid: uuidv4(),
@@ -32,12 +32,14 @@ const MergePdf = () => {
     setLoading(true);
     try {
       const files = fileItems.map((item) => item.file);
-      await mergePdf(files);
+      const outputFilename = filename.trim() || "merged";
+      await mergePdf(files, outputFilename);
     } catch {
       setError("PDF 結合に失敗しました");
     } finally {
       setLoading(false);
       setFileItems([]);
+      setFilename("");
     }
   };
 
@@ -94,6 +96,26 @@ const MergePdf = () => {
                 </div>
               )}
             </div>
+
+            {/* ファイル名入力エリア */}
+            {fileItems.length > 0 && (
+              <div className="mb-6 border-t border-slate-300/20 pt-6">
+                <div className="flex flex-col gap-3">
+                  <label className="text-sm font-medium text-white">
+                    結合後のファイル名
+                  </label>
+                  <Input
+                    value={filename}
+                    onChange={setFilename}
+                    placeholder="merged.pdf"
+                    disabled={loading}
+                  />
+                  <p className="text-xs text-slate-400">
+                    ファイル名を入力してください（.pdfは自動で追加されます）
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* 実行ボタンエリア */}
             <div className="border-t border-slate-300/20 pt-6">
