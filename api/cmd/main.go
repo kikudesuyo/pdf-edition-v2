@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 
+	"github.com/gin-gonic/gin"
 	"github.com/kikudesuyo/pdf-edition-v2/backend/handler"
 )
 
@@ -13,43 +13,36 @@ var allowedOrigins = []string{
 	"https://pdf-edition-v2.vercel.app",
 }
 
-func isOriginAllowed(origin string) bool {
-	for _, o := range allowedOrigins {
-		if o == origin {
-			return true
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		origin := c.GetHeader("Origin")
+		for _, o := range allowedOrigins {
+			if o == origin {
+				c.Header("Access-Control-Allow-Origin", origin)
+				c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+				c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+				c.Header("Access-Control-Allow-Credentials", "true")
+				break
+			}
 		}
-	}
-	return false
-}
-
-func CORSMiddleware(next http.HandlerFunc) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Header.Get("Origin")
-		if isOriginAllowed(origin) {
-			w.Header().Set("Access-Control-Allow-Origin", origin)
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		}
-
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(http.StatusOK)
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusOK)
 			return
 		}
-
-		next.ServeHTTP(w, r)
-	})
+		c.Next()
+	}
 }
 
 func main() {
-	http.HandleFunc("/api/merge-pdf", CORSMiddleware(handler.MergePDFHandler))
-	http.HandleFunc("/api/split-pdf", CORSMiddleware(handler.SplitPDFHandler))
+	router := gin.Default()
+	router.Use(CORSMiddleware())
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Default port if not set
+	router.POST("/api/merge-pdf", handler.MergePDFHandler)
+	router.POST("/api/split-pdf", handler.SplitPDFHandler)
+
+	port := "8080"
+	if err := router.Run(":" + port); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
 	}
-	addr := ":" + port
-	log.Printf("Server starting on %s...", addr)
-	if err := http.ListenAndServe(addr, nil); err != nil {
-		log.Fatalf("Could not start server: %v", err)
-	}
+	log.Printf("Server running on port %s", port)
 }

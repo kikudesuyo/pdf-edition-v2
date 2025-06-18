@@ -7,50 +7,36 @@ import (
 	"mime/multipart"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/kikudesuyo/pdf-edition-v2/backend/service"
 )
 
-func SplitPDFHandler(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseMultipartForm(10 << 20)
+func SplitPDFHandler(c *gin.Context) {
+	file, err := c.FormFile("file")
 	if err != nil {
-		http.Error(w, "Failed to parse file", http.StatusInternalServerError)
-		return
-	}
-	files, ok := r.MultipartForm.File["file"]
-	if !ok || len(files) == 0 {
-		log.Printf("File not provided: %v", http.StatusBadRequest)
-		http.Error(w, "File not provided", http.StatusBadRequest)
-		return
-	}
-	if len(files) != 1 {
-		log.Printf("Only one file is allowed: %v", http.StatusBadRequest)
-		http.Error(w, "Only one file is allowed", http.StatusBadRequest)
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Failed to get file from form: %v", err)})
+		log.Printf("[SplitPDFHandler] Failed to get file from form: %v", err)
 		return
 	}
 
-	pdfBytes, err := fileToByte(files[0])
+	pdfBytes, err := fileToByte(file)
 	if err != nil {
-		log.Printf("Failed to read file: %v", err)
-		http.Error(w, fmt.Sprintf("Failed to read file: %v", err), http.StatusInternalServerError)
+		log.Printf("[SplitPDFHandler] Failed to read file: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Failed to read file: %v", err)})
 		return
 	}
 	splitPdfs, err := service.SplitPDF(pdfBytes)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to split PDF: %v", err), http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Failed to split PDF: %v", err)})
 		return
 	}
 	zipfile, err := service.CreateZip(splitPdfs, "pdf")
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to create zip: %v", err), http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Failed to create zip file: %v", err)})
 		return
 	}
-	w.Header().Set("Content-Type", "application/zip")
-
-	_, err = w.Write(zipfile)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to write response: %v", err), http.StatusInternalServerError)
-		return
-	}
+	c.Header("Content-Disposition", "attachment; filename=split_pdf.zip")
+	c.Data(http.StatusOK, "application/zip", zipfile)
 }
 
 func fileToByte(file *multipart.FileHeader) ([]byte, error) {
