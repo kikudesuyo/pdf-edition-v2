@@ -85,7 +85,6 @@ const Home = () => {
           </h2>
           <p className="leading-relaxed text-white/80">
             ファイルの保存は一切行われません。
-            あなたのデータは100%安全に保護されます。
           </p>
         </section>
       </div>
