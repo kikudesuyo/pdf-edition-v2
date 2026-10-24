@@ -1,6 +1,6 @@
 module github.com/kikudesuyo/pdf-edition-v2/backend
 
-go 1.27
+go 1.27.3
 
 require (
 	github.com/gin-gonic/gin v1.10.1
